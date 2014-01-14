@@ -1,0 +1,7 @@
+{
+  "ImageId": "github runner thingy",
+  "ImageId": "ami-7e56cf4e",
+  "KeyName": "taras",
+  "InstanceType": "t1.micro",
+  "SecurityGroups": ["launch-wizard-17"]
+}
