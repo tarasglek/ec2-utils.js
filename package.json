@@ -1,0 +1,10 @@
+{
+  "name": "ec2-utils",
+  "description": "Utility to convert EC2 spot price logs into a useful format",
+  "version": "0.0.1",
+  "license": "BSD",
+  "dependencies": {
+    "async": "*",
+    "aws-sdk": "*"
+  }
+}

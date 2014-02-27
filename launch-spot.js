@@ -9,6 +9,10 @@ function main() {
 
   var ec2 = new AWS.EC2({'accessKeyId':config.accessKeyId, 'secretAccessKey':config.secretAccessKey,
                          'region':config.region});
+  if (process.argv.length != 3 && process.argv.length != 4) {
+    console.log("Usage: nodejs launch-spot.js <nodespec> <bidspec optional>");
+    process.exit(1);
+  }
 
   var LaunchSpecification = JSON.parse(fs.readFileSync(process.argv[2]))
   var bid = null;
@@ -23,7 +27,7 @@ function main() {
       },
       function(data, callback) {
         function waitForPending(data, callback) {
-          console.log(JSON.stringify(data))
+          //console.log(JSON.stringify(data))
           var status = data.Status.Code
           if (status == "pending-evaluation") {
             setTimeout(function () {
