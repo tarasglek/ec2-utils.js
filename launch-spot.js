@@ -29,7 +29,7 @@ function main() {
         function waitForPending(data, callback) {
           //console.log(JSON.stringify(data))
           var status = data.Status.Code
-          if (status == "pending-evaluation") {
+          if (status.indexOf("pending-") == 0) {
             setTimeout(function () {
                          var cfg = {'SpotInstanceRequestIds':[data.SpotInstanceRequestId]}
                          ec2.describeSpotInstanceRequests(cfg,
@@ -44,7 +44,7 @@ function main() {
             console.log('fulfilled');
             return callback(null, data.InstanceId);
           } else {
-            return callback("spot req rejected", JSON.stringify(data));
+            return callback("spot req rejected with ("+status+")", JSON.stringify(data));
           }
         }
         async.map(data.SpotInstanceRequests, waitForPending, callback);
@@ -84,7 +84,7 @@ function main() {
                                                data.Reservations.forEach(function(x) {retry(null, x)});                                     
                                              })}, 2000);
         } else {
-          callback(null, data.Instances.map(function(x) {return [x.InstanceId, x.PublicDnsName]}));
+          callback(null, data.Instances.map(function(x) {return [x.InstanceId, x.PublicIpAddress]}));
         }
       }
       data.Reservations.forEach(function(x) {retry(null, x)});

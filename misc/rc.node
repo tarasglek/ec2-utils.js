@@ -1,0 +1,10 @@
+#!/bin/sh
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+exec 2> /tmp/rc.node.log # send stderr from rc.local to a log file
+exec 1>&2                      # send stdout to the same log file
+set -x                         # tell sh to display commands before execution
+rm -fR ~/work
+git clone `jq .git < /etc/userdata.json|sed s:\"::g` ~/work
+ln -s /etc/userdata.json ~/work/config.json
+cd ~/work && npm install
+cd ~/work && nodejs index.js
