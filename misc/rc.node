@@ -7,4 +7,4 @@ rm -fR ~/work
 git clone `jq .git < /etc/userdata.json|sed s:\"::g` ~/work
 ln -s /etc/userdata.json ~/work/config.json
 cd ~/work && npm install
-cd ~/work && nodejs index.js
+cd ~/work && while `sleep 0`; do nodejs index.js; done
