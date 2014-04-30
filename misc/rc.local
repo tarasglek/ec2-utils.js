@@ -14,6 +14,7 @@ exec 2> /tmp/rc.local.log  # send stderr from rc.local to a log file
 exec 1>&2                      # send stdout to the same log file
 set -x                         # tell sh to display commands before execution
 curl http://169.254.169.254/latest/user-data > /etc/userdata.json
+apt-get update
 apt-get install -y git node npm jq
 useradd -m node || echo "ignoring"
 su -l -c /etc/rc.node node
